@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 router.get("/", (req, res) => {
-    let title = "Cervello";
-    let hotels = "Our Hotels";
-    res.render("index", { title, hotels });
+    res.render("index");
 })
 
 router.get("/register", (req, res) => {
