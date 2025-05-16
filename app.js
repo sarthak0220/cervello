@@ -8,13 +8,12 @@ const session = require('express-session');
 const app = express();
 
   
-  mongoose.connect('mongodb://127.0.0.1:27017/cervello')
-    .then(() => {
-      console.log("Connected to MongoDB");
-    })
-    .catch(err => {
-      console.log("Error connecting to MongoDB: ", err);
-    });
+  mongoose.connect('mongodb+srv://theabhi0022:<db_password>@cervello.gu8fj4q.mongodb.net/?retryWrites=true&w=majority&appName=cervello', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((err) => console.error('Error connecting to MongoDB:', err));
   
 app.use(session({
     secret: 'your_secret_key', // use a strong secret in production
