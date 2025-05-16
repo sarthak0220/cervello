@@ -7,7 +7,6 @@ const session = require('express-session');
 
 const app = express();
 
-  mongoose.connect('mongodb+srv://theabhi0022:<db_password>@cervello.gu8fj4q.mongodb.net/?retryWrites=true&w=majority&appName=cervello', {
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
