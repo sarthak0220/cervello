@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/aboutus.css">
+    <title>About Us - Cervello</title>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+    <!-- Video Background Hero Section -->
+    <section class="video-bg-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="https://media.gettyimages.com/id/1184292326/video/palm-tree-luxuty-beach-travel-holiday.mp4?s=mp4-640x640-gi&k=20&c=eirV62dx9vwpylOOGuGOmNjUiWh0Xrcg26fXC_PpUTY=" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+            <h1 class="animate-fade-in">Welcome to Cervello</h1>
+            <p class="animate-slide-up">Luxury Beyond Stay</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="content">
+            <div class="text animate-slide-left">
+                <h2>About Us</h2>
+                <p>
+                    At Cervello, we believe luxury is not just about comfort — it's about experience. Nestled in the world's most enchanting locations, our handpicked properties blend elegance, culture, and personalized hospitality to create unforgettable moments.
+                </p>
+                <a href="#team" class="read-more">Meet Our Team →</a>
+            </div>
+            <div class="images animate-slide-right">
+                <img src="https://media.gettyimages.com/id/1432357159/photo/modern-beach-house-with-sea-view-swimming-pool.jpg?s=612x612&w=0&k=20&c=Ydtd2F2ZRNNAJioxbmy3VB9sK0EbZ-VJ5ARymReM5dk=" alt="Luxury Pool View">
+                <img src="https://i.pinimg.com/736x/ba/55/ad/ba55ad19438df3d16f78c53af61895fc.jpg" alt="Elegant Resort Sunset">
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section" id="team">
+        <h2 class="animate-fade-in">Meet The Team</h2>
+        <div class="team-grid">
+            <div class="team-card animate-zoom">
+                <img src="/images/Rhythm.jpg" alt="Team Member">
+                <h3>Rhythm</h3>
+                <p>Founder & Chief Executive Officer</p>
+            </div>
+            <div class="team-card animate-zoom delay-1">
+                <img src="/images/Sarthak.png" alt="Team Member">
+                <h3>Sarthak</h3>
+                <p>Chief Experience Officer</p>
+            </div>
+            <div class="team-card animate-zoom delay-2">
+                <img src="/images/Prabhjot.jpg" alt="Team Member">
+                <h3>Prabhjot</h3>
+                <p>Guest Relations Manager</p>
+            </div>
+            <div class="team-card animate-zoom delay-3">
+                <img src="/images/Diya.jpg" alt="Team Member">
+                <h3>Diya</h3>
+                <p>Guest Relations Manager</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+    <%- include('partials/footer') %>
+</footer>
+
+    <script>
+        // Simple fade-in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        });
+
+        document.querySelectorAll(".animate-fade-in, .animate-slide-up, .animate-slide-left, .animate-slide-right, .animate-zoom").forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

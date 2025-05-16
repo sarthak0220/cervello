@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 200px;
+    transition: 0.5s ease;
+}
+
+header .brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header .navigation {
+    position: relative;
+}
+
+header .navigation .navigation-items a {
+    position: relative;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: #fff;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a:hover::before {
+    width: 100%;
+}
+
+section {
+    padding: 100px 200px;
+}
+/* Background image with overlay */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: 
+        linear-gradient(rgba(34,34,34,0.6), rgba(34,34,34,0.7)),
+        url('https://i.pinimg.com/736x/7f/4e/4a/7f4e4aa222bd157887a3753010953bd3.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    max-width: 480px;
+    width: 100%;
+    z-index: 2;
+}
+
+/* Card */
+.card {
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.20);
+    padding: 32px 28px 28px 28px;
+    border: none;
+    margin: 32px 0;
+    transition: box-shadow 0.2s;
+}
+
+.card-header {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #222;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    background: none;
+}
+
+/* Form Label */
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.input-group-outer {
+    margin-bottom: 1.5rem;
+}
+
+.input-flex {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-left {
+    font-size: 1rem;
+    color: #888;
+    background-color: #f4f4f4;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    min-width: 44px;
+    text-align: center;
+}
+
+.input-flex .form-control {
+    padding: 12px 15px;
+    flex: 1;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px 12px 42px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    color: #222;
+    transition: 0.3s;
+    font-size: 0.98rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #8e72ff;
+    box-shadow: 0 0 8px rgba(180, 155, 255, 0.15);
+}
+
+.form-check-label {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Button */
+.btn-primary {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 13px 0;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(34,34,34,0.08);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background: #444;
+    color: #fff;
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Alert */
+.alert {
+    background-color: #c0392b;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Dropdown Styles (unchanged) */
+.dropdown { position: relative; display: inline-block; }
+.dropdown .dropbtn { position: relative; color: #fff; font-size: 1rem; font-weight: 500; text-decoration: none; margin-left: 30px; transition: 0.3s; }
+.dropdown-content { position: absolute; top: 120%; left: 50%; transform: translateX(-50%); background: #222; display: flex; width: 700px; padding: 20px; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, top 0.3s; z-index: 999; }
+.dropdown:hover .dropdown-content { opacity: 1; visibility: visible; top: 130%; }
+.dropdown-section { flex: 1; padding: 10px; }
+.dropdown-section h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; color: #fff; }
+.dropdown-section a { display: block; color: #ccc; font-size: 1rem; text-decoration: none; padding: 5px 0; transition: 0.3s; }
+.dropdown-section a:hover { color: #2696e9; }
+
+/* Responsive */
+@media (max-width: 1040px) {
+    header { padding: 12px 20px; }
+    section { padding: 100px 20px; }
+    .container { padding: 10px; }
+    .home .media-icons {
+        right: 15px;
+    }
+    header .navigation {
+        display: none;
+    }
+
+    header .navigation.active {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(1, 1, 1, 0.5);
+    }
+
+    header .navigation .navigation-items a {
+        color: #222;
+        font-size: 1.2em;
+        margin: 20px;
+    }
+
+    header .navigation .navigation-items a::before {
+        background: #222;
+        height: 5px;
+    }
+    header .navigation.active .navigation-items {
+        background: #fff;
+        width: 600px;
+        max-width: 600px;
+        margin: 20px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: 0 5 25px rgba(1 1 1/20%);
+    }
+    .menu-btn {
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAuYkbzGgq9TvF4mt6IkHKVmBQWdHX8c0aw&s') no-repeat center;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    
+    .menu-btn.active {
+        z-index: 999;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQkC8xzTOrecjUgUXT3H0XkazbKVN7pBd8g&s') no-repeat center;
+        background-size: 25px;
+        background-position: center;
+        transition: 0.3s ease;
+    }
+}
+
+@media (max-width: 576px) {
+    .container { padding: 6px; }
+    .card { padding: 20px 8px; }
+    .btn-primary { font-size: 0.97rem; }
+}

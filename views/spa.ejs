@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/spa.css">
+    <title>Full-Width Image Slider</title>
+</head>
+
+<body>
+
+    <%- include('partials/navbar') %>
+    <div class="home">
+        <div class="media-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <div class="slider-container">
+        <div class="slides">
+            <div class="slide slide1">
+                <div class="overlay"></div>
+                <div class="content">
+                    <h1>DISCOVER YOUR OASIS</h1>
+                    <p>Indulge in elegance at your private island oasis.</p>
+                    <div class="buttons">
+                        <button class="btn purchase" onclick="window.location.href='/spa-session'">BOOK SESSION</button>
+                        <button class="btn contact" onclick="window.location.href='/aboutus'">CONTACT US</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide slide2">
+                <div class="overlay"></div>
+                <div class="content">
+                    <h1>RELAX AND UNWIND</h1>
+                    <p>Find your inner peace with our premium services.</p>
+                    <div class="buttons">
+                        <button class="btn purchase" onclick="window.location.href='/spa-session'">BOOK SESSION</button>
+                        <button class="btn contact" onclick="window.location.href='/aboutus'">CONTACT US</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide slide3">
+                <div class="overlay"></div>
+                <div class="content">
+                    <h1>EXPERIENCE TRANQUILITY</h1>
+                    <p>Rejuvenate your body and soul with us.</p>
+                    <div class="buttons">
+                        <button class="btn purchase" onclick="window.location.href='/spa-session'">BOOK SESSION</button>
+                        <button class="btn contact" onclick="window.location.href='/aboutus'">CONTACT US</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
+
+    <div class="text-section">
+        <div class="icon"></div>
+        <h2>Welcome to Our Spa Experience</h2>
+        <p>Relax, rejuvenate, and rediscover tranquility. Indulge in soothing massages, luxurious skincare, and revitalizing treatments designed for your well-being. Because you deserve it. ✨</p>
+    </div>
+
+    <div class="gallery">
+        <div class="grid-item wide">
+       <img src="https://i.pinimg.com/474x/26/69/ce/2669ceb546a8977eb5509343dcae5414.jpg" alt="Spa Image 1">
+   </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/736x/9f/88/01/9f880100ad711d2173157e9c9452ec19.jpg" alt="Spa Image 2">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/736x/4d/63/74/4d6374fb1f7116b42250e3dc195342b0.jpg" alt="Massage">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/736x/b4/41/54/b44154fe7d63a50810841e55f1d2527a.jpg" alt="Essential Oils">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/736x/4c/d0/18/4cd0183839b0141f2b4627d167da19f4.jpg" alt="Relaxing Massage">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/474x/68/96/6b/68966b365bc21feab9e93a9be669996e.jpg" alt="Relaxing Massage">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/474x/b8/21/03/b821036ec4f5939d0e2fc5d15e730888.jpg" alt="Relaxing Massage">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/474x/3c/79/d1/3c79d1d9f000040fb09c713ab100e6af.jpg" alt="Relaxing Massage">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.pinimg.com/474x/51/bd/6c/51bd6c6fac45380457b9f6f2fbe0d003.jpg" alt="Relaxing Massage">
+        </div>
+    </div>
+    <footer>
+    <%- include('partials/footer') %>
+</footer>
+    <script>
+        // Menu button
+        const menuBtn = document.querySelector('.menu-btn');
+        const navigation = document.querySelector('.navigation');
+
+        menuBtn.addEventListener('click', () => {
+            navigation.classList.toggle('active');
+            menuBtn.classList.toggle('active');  // Ensure the button toggles its active state
+        });
+
+        let index = 0;
+        const slides = document.querySelector(".slides");
+        const totalSlides = document.querySelectorAll(".slide").length;
+        const contents = document.querySelectorAll(".content");
+
+        function updateSlide() {
+            slides.style.transform = `translateX(-${index * 100}%)`;
+            resetTextAnimation();
+            setTimeout(() => {
+                animateText(contents[index]);
+            }, 500); // Wait 0.5s before triggering animation
+        }
+
+        function resetTextAnimation() {
+            contents.forEach(content => {
+                content.style.opacity = "0";
+                content.querySelector("h1").style.animation = "none";
+                content.querySelector("p").style.animation = "none";
+                content.querySelector(".buttons").style.animation = "none";
+            });
+        }
+
+        function animateText(content) {
+            content.style.opacity = "1";
+            content.querySelector("h1").style.animation = "fadeInUp 1s ease-in-out forwards";
+            content.querySelector("p").style.animation = "fadeInUp 1s ease-in-out 1s forwards";
+            content.querySelector(".buttons").style.animation = "fadeInUp 1s ease-in-out 1.5s forwards";
+        }
+
+        document.querySelector(".next").addEventListener("click", () => {
+            index = (index + 1) % totalSlides;
+            updateSlide();
+        });
+
+        document.querySelector(".prev").addEventListener("click", () => {
+            index = (index - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        });
+
+        setInterval(() => {
+            index = (index + 1) % totalSlides;
+            updateSlide();
+        }, 8000); // Slower auto-slide
+
+        // Initial animation when page loads
+        window.onload = () => {
+            animateText(contents[0]);
+        };
+        
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dining.css">
+    <title>Dining</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+        <section class="locations-section">
+            <h1>Our Restraunts</h1>
+            <div class="locations-container">
+                <% restaurants.forEach(restaurant=> { %>
+                    <div class="location-card">
+                        <img src="<%= restaurant.image %>" alt="<%= restaurant.name %>">
+                        <h2>
+                            <%= restaurant.name %>
+                        </h2>
+                        <p>
+                            <%= restaurant.description %>
+                        </p>
+                        <a href="/dining/<%= restaurant._id %>">Reserve a table</a>
+                    </div>
+                    <% }) %>
+            </div>
+            <div class="home">
+                <div class="media-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+        <footer>
+    <%- include('partials/footer') %>
+</footer>
+        <script>
+            //responsive navigation menu
+            const menuBtn = document.querySelector('.menu-btn');
+            const navigation = document.querySelector('.navigation');
+
+            menuBtn.addEventListener('click', () => {
+                navigation.classList.toggle('active');
+                menuBtn.classList.toggle('active');  // Ensure the button toggles its active state
+            });
+        </script>
+
+</body>
+
+</html>

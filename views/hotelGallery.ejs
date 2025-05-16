@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= hotel.name %> - Gallery</title>
+  <link rel="stylesheet" href="/css/hotel-details.css">
+  <style>
+    .gallery-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 36px;}
+    .gallery-grid img { width: 320px; height: 200px; object-fit: cover; border-radius: 16px; }
+    @media (max-width: 900px) {
+      .gallery-grid img { width: 98vw; }
+    }
+  </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+  <button class="back-arrow" onclick="window.history.back()" aria-label="Go back">&#8592;</button>
+  <div class="container">
+    <h2><%= hotel.name %> Gallery</h2>
+    <div class="gallery-grid">
+      <img src="<%= hotel.mainImage %>" alt="Main Image">
+      <% hotel.galleryImages.forEach(function(img) { %>
+        <img src="<%= img %>" alt="Gallery Image">
+      <% }); %>
+    </div>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,297 @@
+/*nav*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 200px;
+    transition: 0.5s ease;
+}
+
+header .brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header .navigation {
+    position: relative;
+}
+
+header .navigation .navigation-items a {
+    position: relative;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: #fff;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a:hover::before {
+    width: 100%;
+}
+
+/*media-icons*/
+.home .media-icons {
+    z-index: 888;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s ease;
+}
+
+.home .media-icons a {
+    color: #fff;
+    font-size: 1.6em;
+    transition: 0.3s ease;
+}
+
+.home .media-icons a:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.home .media-icons a:hover {
+    transform: scale(1.3);
+}
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropbtn {
+    position: relative;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+/* Centered Mega Dropdown */
+.dropdown-content {
+    position: absolute;
+    top: 120%; /* Increased from 100% to 120% to push it lower */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    display: flex;
+    width: 700px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
+    z-index: 999;
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    top: 130%; /* Moves dropdown smoothly down when hovered */
+}
+
+
+.dropdown-section {
+    flex: 1;
+    padding: 10px;
+}
+
+.dropdown-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.dropdown-section a {
+    display: block;
+    color: #ccc;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: 0.3s ease;
+}
+
+.dropdown-section a:hover {
+    color: #2696e9;
+}
+/*body*/
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
+
+.locations-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.locations-section h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+
+.locations-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.location-card {
+    background-color: #222;
+    overflow: hidden;
+    width: 400px;
+    text-align: left;
+}
+
+/* .location-card1 {
+            background-color: #222;
+            overflow: hidden;
+            width: 600px;
+            text-align: left;
+        } */
+
+.locations-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 1.7s ease-in-out;
+}
+
+.locations-container img:hover {
+    transform: scale(1.1);
+}
+
+.locations-container h2 {
+    margin: 15px;
+    font-size: 1.5em;
+}
+
+.locations-container p {
+    margin: 15px;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.locations-container a {
+    display: inline-block;
+    margin: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.locations-container a:hover {
+    background-color: #fff;
+    color: #222;
+}
+
+@media (max-width: 1040px) {
+    header {
+        padding: 12px 20px;
+    }
+
+    section {
+        padding: 100px 20px;
+    }
+
+    .home .media-icons {
+        right: 15px;
+    }
+
+    header .navigation {
+        display: none;
+    }
+
+    header .navigation.active {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(1, 1, 1, 0.5);
+    }
+
+    header .navigation .navigation-items a {
+        color: #222;
+        font-size: 1.2em;
+        margin: 20px;
+    }
+
+    header .navigation .navigation-items a::before {
+        background: #222;
+        height: 5px;
+    }
+
+    header .navigation.active .navigation-items {
+        background: #fff;
+        width: 600px;
+        max-width: 600px;
+        margin: 20px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: 0 5 25px rgba(1 1 1/20%);
+    }
+
+    .menu-btn {
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAuYkbzGgq9TvF4mt6IkHKVmBQWdHX8c0aw&s') no-repeat center;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .menu-btn.active {
+        z-index: 999;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQkC8xzTOrecjUgUXT3H0XkazbKVN7pBd8g&s') no-repeat center;
+        background-size: 25px;
+        background-position: center;
+        transition: 0.3s ease;
+    }
+}

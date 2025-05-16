@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 200px;
+    transition: 0.5s ease;
+}
+
+header .brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header .navigation {
+    position: relative;
+}
+
+header .navigation .navigation-items a {
+    position: relative;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: #fff;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a:hover::before {
+    width: 100%;
+}
+
+section {
+    padding: 100px 200px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropbtn {
+    position: relative;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+/* Centered Mega Dropdown */
+.dropdown-content {
+    position: absolute;
+    top: 120%; /* Increased from 100% to 120% to push it lower */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    display: flex;
+    width: 700px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
+    z-index: 999;
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    top: 130%; /* Moves dropdown smoothly down when hovered */
+}
+
+
+.dropdown-section {
+    flex: 1;
+    padding: 10px;
+}
+
+.dropdown-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.dropdown-section a {
+    display: block;
+    color: #ccc;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: 0.3s ease;
+}
+
+.dropdown-section a:hover {
+    color: #2696e9;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    /* background-color: #f9f9f9; */
+    background-color: #222;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    background-image: url('https://images.unsplash.com/photo-1467377791767-c929b5dc9a23?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;  /* Vertically center */
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h2 {
+    z-index: 888;
+    color: #fff;
+    width: 70%;
+    font-size: 3em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    line-height: 75px;
+    animation: fadeInUp 1.2s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-delay: 0.3s;
+}
+
+
+
+
+.search-wrapper {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1100px;
+}
+
+.search-tab {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    align-items: flex-end;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select,
+input[type="date"],
+.custom-select,
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    appearance: none;
+    background: white url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-size: 16px;
+}
+
+.custom-select {
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown-content-guests {
+    position: absolute;
+    top: 105%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 12px;
+    display: none;
+    z-index: 10;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content-guests.show {
+    display: block;
+}
+
+.dropdown-content-guests label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.dropdown-content-guests input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #3e3e3e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 44px;
+    margin-bottom: 4px;
+}
+
+button:hover {
+    background-color: #222;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+#hotel-results {
+    /* padding: 100px 5% 40px; */
+    padding: 70px 0px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 20px auto; /* This centers the grid container */
+    box-sizing: border-box;
+    justify-items: center; /* This centers the grid items horizontally */
+  }
+
+#hotel-results h7 {
+    color: #fff; /* or any contrasting color, e.g., #d32f2f for red */
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.book-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3e3e3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+    background-color: #222;
+}
+
+
+@media (max-width: 768px) {
+    .search-tab {
+        grid-template-columns: 1fr;
+    }
+    header {
+        padding: 12px 20px;
+    }
+    section {
+        padding: 100px 20px;
+    }
+    .home .media-icons {
+        right: 15px;
+    }
+    header .navigation {
+        display: none;
+    }
+
+    header .navigation.active {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(1, 1, 1, 0.5);
+    }
+
+    header .navigation .navigation-items a {
+        color: #222;
+        font-size: 1.2em;
+        margin: 20px;
+    }
+
+    header .navigation .navigation-items .dropdown-content a {
+        color: #fff;
+    }
+
+    header .navigation .navigation-items a::before {
+        background: #222;
+        height: 5px;
+        color: #fff;
+    }
+    header .navigation.active .navigation-items {
+        background: #fff;
+        width: 600px;
+        max-width: 600px;
+        margin: 20px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        box-shadow: 0 5 25px rgba(1 1 1/20%);
+    }
+    
+    .menu-btn {
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmAuYkbzGgq9TvF4mt6IkHKVmBQWdHX8c0aw&s') no-repeat center;
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    
+    .menu-btn.active {
+        z-index: 999;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQQkC8xzTOrecjUgUXT3H0XkazbKVN7pBd8g&s') no-repeat center;
+        background-size: 25px;
+        background-position: center;
+        transition: 0.3s ease;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

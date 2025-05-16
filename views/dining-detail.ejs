@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= restaurant.name %> - Reservation</title>
+  <link rel="stylesheet" href="/css/dining-detail.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="detail-container">
+    <!-- Left: Restaurant Image -->
+    <div class="image-section">
+      <img src="<%= restaurant.image %>" alt="<%= restaurant.name %>" />
+    </div>
+
+    <!-- Right: Reservation Form -->
+    <div class="reservation-section">
+      <h1><%= restaurant.name %></h1>
+      <p class="description"><%= restaurant.description %></p>
+      <form action="/dining/<%= restaurant._id %>/details" method="POST" class="reservation-form">
+        <label for="guests">Guests</label>
+        <select name="guests" id="guests" required>
+          <option value="" disabled selected hidden>Select</option>
+          <% for(let i = 1; i <= 10; i++) { %>
+            <option value="<%= i %>"><%= i %> guest<%= i > 1 ? 's' : '' %></option>
+          <% } %>
+        </select>
+
+        <label for="time">Time</label>
+        <input type="time" id="time" name="time" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <button type="submit">Reserve Table</button>
+      </form>
+    </div>
+  </div>
+  
+</body>
+<script>
+  // Set minimum date to today
+  const dateInput = document.getElementById("date");
+  const timeInput = document.getElementById("time");
+  const form = document.querySelector(".reservation-form");
+
+  const today = new Date();
+  const todayStr = today.toISOString().split("T")[0];
+  dateInput.min = todayStr;
+
+  // Time validation on form submit
+  form.addEventListener("submit", function (e) {
+    const selectedDate = new Date(dateInput.value);
+    const selectedTime = timeInput.value;
+
+    // If date is today, check time
+    if (dateInput.value === todayStr) {
+      const [hours, minutes] = selectedTime.split(":");
+      const selectedDateTime = new Date();
+      selectedDateTime.setHours(hours, minutes, 0, 0);
+
+      if (selectedDateTime < today) {
+        alert("You cannot select a past time for today.");
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // Check if date is in the past (shouldn't happen if min works)
+    if (selectedDate < today.setHours(0, 0, 0, 0)) {
+      alert("You cannot select a past date.");
+      e.preventDefault();
+    }
+  });
+  dateInput.addEventListener("input", () => {
+  const selected = new Date(dateInput.value).getDay();
+  if (selected === 0 || selected === 6) {
+    alert("Reservations aren't available on weekends.");
+    dateInput.value = "";
+  }
+});
+</script>
+</html>

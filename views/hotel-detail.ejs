@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= hotel.name %> - Hotel Booking Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/hotel-details.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <!-- <button class="back-arrow" onclick="window.history.back()" aria-label="Go back">&#8592;</button> -->
+
+  <div class="container">
+    <!-- Hotel Gallery -->
+    <div class="hotel-gallery">
+      <img src="<%= hotel.mainImage %>" alt="Main Room" class="gallery-main">
+      <div class="gallery-side">
+        <% hotel.galleryImages.forEach(function(img, index) { %>
+          <% if (index === hotel.galleryImages.length - 1) { %>
+            <div class="gallery-image-container">
+              <img src="<%= img %>" alt="Gallery Image">
+              <div class="image-overlay">
+                <a href="/hotels/<%= hotel._id %>/hotelGallery" class="view-more-btn">View More</a>
+              </div>
+            </div>
+          <% } else { %>
+            <img src="<%= img %>" alt="Gallery Image">
+          <% } %>
+        <% }); %>
+      </div>       
+    </div>
+    <!-- Hotel Info -->
+    <div class="hotel-header">
+      <div>
+        <div class="hotel-title"><%= hotel.name %></div>
+        <div class="hotel-location"><%= hotel.starRating %>-star hotel located in <%= hotel.location.city %>, <%= hotel.location.country %></div>
+      </div>
+      <div class="hotel-meta">
+        <div class="rating-row">
+          <span class="excellent"><%= hotel.rating >= 8 ? 'Excellent' : 'Good' %></span>
+          <span class="rating-badge"><%= hotel.rating %></span>
+        </div>
+        <span class="review-count"><%= hotel.reviewCount %> reviews</span>
+      </div>
+    </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="rooms">Rooms</button>
+      <button class="tab" data-tab="amenities">Amenities</button>
+      <button class="tab" data-tab="policies">Policies</button>
+    </div>
+
+    <!-- Tab Contents (all siblings, not nested) -->
+    <div id="overview" class="tab-content active">
+      <!-- Property Overview Vertical -->
+      <div class="section-block">
+        <div class="section-title">Property overview</div>
+        <div class="property-features-list">
+          <% hotel.features.forEach(function(feature) { %>
+            <div class="property-feature"><i class="<%= feature.icon %>"></i> <%= feature.name %></div>
+          <% }); %>
+        </div>
+      </div>
+      <!-- Rooms Vertical -->
+      <div class="section-block">
+        <div class="section-title">Rooms</div>
+        <div class="rooms-list">
+          <% hotel.rooms.forEach(function(room) { %>
+            <div class="room-card">
+              <img src="<%= room.image %>" alt="<%= room.type %>">
+              <div class="room-card-content">
+                <div class="room-type"><%= room.type %></div>
+                <div class="room-details"><i class="fa-regular fa-square"></i> <%= room.size %> sqm &nbsp;&nbsp; <i class="fa-regular fa-user"></i> <%= room.maxGuests %> people</div>
+                <div class="room-info"><i class="fa-solid fa-bed"></i> <%= room.bedType %></div>
+                <div class="room-note"><%= room.note %></div>
+                <button onclick="window.location.href='/hotels/<%= hotel._id %>/book/<%= encodeURIComponent(room.type) %>'">Book now for $<%= room.price %></button>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      <!-- Ratings Section -->
+      <div class="section-block">
+        <div class="section-title">Reviews</div>
+        <div class="ratings-section">
+          <div class="ratings-summary">
+            <div class="ratings-summary-score"><%= hotel.rating %>/10</div>
+            <div class="ratings-summary-details">Based on <%= hotel.reviewCount %> reviews</div>
+            <div class="ratings-bars">
+              <!-- Display single rating bar -->
+              <div class="ratings-bar">
+                <span class="ratings-bar-label">Overall Rating</span>
+                <div class="ratings-bar-bg">
+                  <div class="ratings-bar-fill"
+                    style="width: <%= hotel.rating * 10 %>%; background: #222;">
+                  </div>
+                </div>
+                <span class="ratings-bar-score"><%= hotel.rating %>/10</span>
+              </div>
+            </div>
+          </div>
+          <div class="reviews-list">
+            <% hotel.reviews.forEach(function(review) { %>
+              <div class="review-block">
+                <div class="review-meta">
+                  <span class="review-title"><%= review.title %></span>
+                  <span class="review-rating <%= review.rating < 7 ? 'avg' : '' %>">
+                    <%= review.rating >= 7 ? 'Excellent' : 'Average' %> <%= review.rating %>
+                  </span>
+                  <span class="review-date">Reviewed on <%= review.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %></span>
+                </div>
+                <div class="review-text"><%= review.text %></div>
+                <% if (review.pros) { %><div class="review-pros"><%= review.pros %></div><% } %>
+                <% if (review.cons) { %><div class="review-cons"><%= review.cons %></div><% } %>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rooms" class="tab-content">
+      <div class="section-block">
+        <div class="section-title">Rooms</div>
+        <div class="rooms-list">
+          <% hotel.rooms.forEach(function(room) { %>
+            <div class="room-card">
+              <img src="<%= room.image %>" alt="<%= room.type %>">
+              <div class="room-card-content">
+                <div class="room-type"><%= room.type %></div>
+                <div class="room-details"><i class="fa-regular fa-square"></i> <%= room.size %> sqm &nbsp;&nbsp; <i class="fa-regular fa-user"></i> <%= room.maxGuests %> people</div>
+                <div class="room-info"><i class="fa-solid fa-bed"></i> <%= room.bedType %></div>
+                <div class="room-note"><%= room.note %></div>
+                <button onclick="window.location.href='/hotels/<%= hotel._id %>/book/<%= encodeURIComponent(room.type) %>'">Book now for $<%= room.price %></button>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <div id="amenities" class="tab-content">
+      <div class="section-block">
+        <div class="section-title">Amenities</div>
+        <div class="property-features-list">
+          <% hotel.amenities.forEach(function(amenity) { %>
+            <div class="property-feature"><i class="<%= amenity.icon %>"></i> <%= amenity.name %></div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <div id="policies" class="tab-content">
+      <div class="section-block">
+        <div class="section-title">Policies</div>
+        <ul>
+          <% hotel.policies.forEach(function(policy) { %>
+            <li><%= policy %></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    //responsive navigation menu
+    const menuBtn = document.querySelector('.menu-btn');
+    const navigation = document.querySelector('.navigation');
+    menuBtn.addEventListener('click', () => {
+      navigation.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+    });
+
+    // Tab switching logic
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Back arrow functionality
+    const backArrow = document.querySelector('.back-arrow');
+    backArrow.addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>

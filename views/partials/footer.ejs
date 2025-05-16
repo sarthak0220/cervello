@@ -1,0 +1,248 @@
+<style>
+.custom-footer {
+  background: url('https://i.pinimg.com/736x/17/2e/3c/172e3c6c5af6c498533ddb13205a2734.jpg') no-repeat center center/cover;
+  position: relative;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  padding: 40px 30px 10px;
+}
+
+.footer-overlay {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 70px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Or flex-start */
+  gap: 270px; /* Reduce as needed */
+}
+
+
+.footer-left h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.footer-left p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-center h3,
+.footer-right h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-center li {
+  margin-bottom: 10px;
+}
+
+.footer-center a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-right form {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Needed for popup positioning */
+}
+
+.footer-right input[type="email"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+
+.footer-right input::placeholder {
+  color: #ccc;
+}
+
+.footer-right .privacy-policy {
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.footer-right .privacy-policy a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-right button {
+  align-self: flex-start;
+  background: #fff;
+  color: #000;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-right button:hover {
+  background: #2696e9;
+  color: #fff;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  border-top: 1px solid #555;
+  padding-top: 20px;
+}
+
+.footer-bottom a {
+  color: #ccc;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-bottom p {
+  margin-top: 10px;
+  color: #aaa;
+}
+
+/* Popup styling */
+.popup-msg {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: #fff;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.popup-msg.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Arrow for popup */
+.popup-msg::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+
+.footer-content,
+.footer-bottom {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+
+</style>
+
+<footer class="custom-footer">
+  <div class="footer-wrapper">
+    <!-- Dark overlay over background image -->
+    <div class="overlay"></div>
+
+    <div class="footer-content">
+      <div class="footer-left">
+        <h2>CERVELLO HOTELS</h2>
+        <p>Plot 12, Palm Avenue Road<br>Mumbai, Maharashtra, India</p>
+        <p>Tel: +91 98200 12345<br>Email: support@cervellohotels.com</p>
+      </div>
+
+      <div class="footer-center">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="/booking">Rooms & Suites</a></li>
+            <li><a href="/spa">Spa</a></li>
+          <li><a href="/dining">Dining</a></li>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-right">
+        <h3>Subscribe to our Newsletter</h3>
+        <form class="newsletter-form" onsubmit="showPopup(event)">
+          <!-- Popup message -->
+          <div class="popup-msg" id="popup-msg">Thanks for subscribing!</div>
+
+          <label for="email">EMAIL*</label>
+          <input type="email" id="email" placeholder="Your email" required />
+
+          <div class="privacy-policy">
+            <p><strong>PRIVACY POLICY</strong><br>
+              <a href="/aboutus">Click here to read our privacy policy.</a>
+            </p>
+            <label>
+              <input type="checkbox" required>
+              I agree to the processing of my personal data.
+            </label>
+          </div>
+
+          <button type="submit">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <a href="/aboutus">PRIVACY POLICY</a>
+      <a href="/aboutus">COOKIE POLICY</a>
+      <a href="/aboutus">CREDITS</a>
+      <p>&copy; 2025 Cervello Hotels. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showPopup(e) {
+    e.preventDefault();
+
+    const popup = document.getElementById("popup-msg");
+    popup.classList.add("show");
+
+    setTimeout(() => {
+      popup.classList.remove("show");
+    }, 3000);
+  }
+</script>
+

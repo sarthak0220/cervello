@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book <%= roomType %> - <%= hotel.name %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/hotel-details.css">
+  <link rel="stylesheet" href="/css/booking-form.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  
+  <!-- <button class="back-arrow" onclick="window.history.back()" aria-label="Go back">&#8592;</button> -->
+  
+  <div class="container booking-container">
+    <h2>Book <%= hotel.name %></h2>
+    
+    <div class="booking-layout">
+      <!-- Left side: Booking Form -->
+      <div class="booking-form">
+        <div class="step">
+          <h3>Step 1:</h3>
+          <div class="property-amenities">
+            <div class="amenities-list">
+              <% hotel.amenities.forEach(function(amenity) { %>
+                <div class="amenity-item">
+                  <i class="<%= amenity.icon %>"></i> <%= amenity.name %>
+                </div>
+              <% }); %>
+            </div>
+            <p>Breakfast Included</p>
+          </div>
+          
+          <div class="date-selection">
+            <div class="form-group">
+              <label for="check-in">Check-in</label>
+              <input type="date" id="check-in" name="checkIn" required>
+            </div>
+            <div class="form-group">
+              <label for="check-out">Check-out</label>
+              <input type="date" id="check-out" name="checkOut" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="bed-option">Choose bed option</label>
+            <select id="bed-option" name="bedOption" required>
+              <option value="">Select bed type</option>
+              <% if (room.bedType.includes('separate')) { %>
+                <option value="2 separate beds">2 separate beds</option>
+              <% } %>
+              <% if (room.bedType.includes('queen') || room.bedType.includes('king')) { %>
+                <option value="1 <%= room.bedType.includes('queen') ? 'queen' : 'king' %> bed">1 <%= room.bedType.includes('queen') ? 'queen' : 'king' %> bed</option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h3>Step 2: Personal data</h3>
+          <div class="form-group">
+            <label for="guest-name">First and Last name</label>
+            <input type="text" id="guest-name" name="guestName" placeholder="e.g. Maria Lost" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="email@example.com"
+  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+  title="Please enter a valid email address (e.g. user@example.com)" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="1234567890" pattern="^\d{10}$" title="Enter a 10-digit phone number" required>
+          </div>
+        </div>
+        
+        <div class="step">
+          <h3>Step 3: Payment details</h3>
+          <div class="form-group">
+            <label for="card-name">Name on card</label>
+            <input type="text" id="card-name" name="cardName" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
+          </div>
+          <div class="form-group">
+            <label for="card-number">Card number</label>
+            <input type="text" id="card-number" name="cardNumber" placeholder="1234 5678 9012 3456" pattern="^\d{16}$" maxlength="16" title="Enter a 16-digit card number" required>
+          </div>
+          <div class="payment-row">
+            <div class="form-group">
+              <label for="expiry">Valid until</label>
+              <input type="text" id="expiry" name="expiry" placeholder="MM/YY" pattern="^(0[1-9]|1[0-2])\/\d{2}$" title="Format must be MM/YY" required>
+            </div>
+            <div class="form-group">
+              <label for="cvc">CVC</label>
+              <input type="text" id="cvc" name="cvc" placeholder="123" pattern="^\d{3}$" maxlength="3" title="Enter a 3-digit CVC" required>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right side: Booking Summary -->
+      <div class="booking-summary">
+        <img src="<%= room.image %>" alt="<%= room.type %>" class="room-image">
+        <h3><%= hotel.name %> <%= hotel.starRating %>★</h3>
+        <p class="hotel-location"><%= hotel.location.city %>, <%= hotel.location.country %></p>
+        
+        <div class="booking-details">
+          <div class="detail-row">
+            <span>Check-in</span>
+            <span id="summary-checkin">Select date</span>
+          </div>
+          <div class="detail-row">
+            <span>Check-out</span>
+            <span id="summary-checkout">Select date</span>
+          </div>
+          
+          <div class="room-info">
+            <h4><%= room.type %></h4>
+            <p>Price per night</p>
+            <div class="price-breakdown">
+              <div class="detail-row">
+                <span>Room (<span id="night-count">0</span> nights)</span>
+                <span>$<span id="room-total"><%= room.price %></span></span>
+              </div>
+              <div class="detail-row">
+                <span>City tax</span>
+                <span>$40</span>
+              </div>
+              <div class="detail-row">
+                <span>Service fee</span>
+                <span>$20</span>
+              </div>
+              <div class="detail-row total">
+                <span>TOTAL</span>
+                <span>$<span id="total-price">0</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <button id="book-now-btn" class="book-now" disabled>Book now</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>Booking Successful!</h2>
+      <p>Your room has been booked successfully.</p>
+      <button id="close-modal">Continue</button>
+    </div>
+  </div>
+  
+  <script>
+    // Date handling and calculations
+    const checkInInput = document.getElementById('check-in');
+    const checkOutInput = document.getElementById('check-out');
+    const summaryCheckin = document.getElementById('summary-checkin');
+    const summaryCheckout = document.getElementById('summary-checkout');
+    const nightCount = document.getElementById('night-count');
+    const roomTotal = document.getElementById('room-total');
+    const totalPrice = document.getElementById('total-price');
+    const bookNowBtn = document.getElementById('book-now-btn');
+    const pricePerNight = parseInt('<%= room.price %>', 10);
+
+    
+    // Set min dates
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    
+    checkInInput.min = today.toISOString().split('T')[0];
+    checkOutInput.min = tomorrow.toISOString().split('T')[0];
+
+    // if (new Date(checkout) <= new Date(checkin)) {
+    // document.getElementById('checkout-error').textContent = 'Check-out must be after check-in.';
+    // isValid = false;
+// }
+    
+    // Update booking summary when dates change
+    function updateSummary() {
+      if (checkInInput.value && checkOutInput.value) {
+        const checkIn = new Date(checkInInput.value);
+        const checkOut = new Date(checkOutInput.value);
+        
+        // Format dates for display
+        summaryCheckin.textContent = checkIn.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        summaryCheckout.textContent = checkOut.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        
+        // Calculate nights and total
+        const nights = Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+        nightCount.textContent = nights;
+        
+        const roomCost = nights * pricePerNight;
+        roomTotal.textContent = roomCost;
+        
+        const total = roomCost + 40 + 20; // Add city tax and service fee
+        totalPrice.textContent = total;
+        
+        validateForm();
+      }
+    }
+    
+    checkInInput.addEventListener('change', function() {
+      // Ensure checkout is after checkin
+      const checkIn = new Date(this.value);
+      const nextDay = new Date(checkIn);
+      nextDay.setDate(nextDay.getDate() + 1);
+      
+      checkOutInput.min = nextDay.toISOString().split('T')[0];
+      
+      if (checkOutInput.value && new Date(checkOutInput.value) <= checkIn) {
+        checkOutInput.value = nextDay.toISOString().split('T')[0];
+      }
+      
+      updateSummary();
+    });
+    
+    checkOutInput.addEventListener('change', updateSummary);
+    
+    // Form validation
+    const allInputs = document.querySelectorAll('input, select');
+    allInputs.forEach(input => {
+      input.addEventListener('input', validateForm);
+    });
+    
+    function validateForm() {
+  const allFilled = Array.from(allInputs).every(input => input.value.trim() !== '');
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value);
+  const phoneValid = /^\d{10}$/.test(document.getElementById('phone').value);
+  const cardValid = /^\d{16}$/.test(document.getElementById('card-number').value);
+  const expiryValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(document.getElementById('expiry').value);
+  const cvcValid = /^\d{3}$/.test(document.getElementById('cvc').value);
+
+  const namePattern = /^[A-Za-z\s]+$/;
+  const guestNameValid = namePattern.test(document.getElementById('guest-name').value);
+  const cardNameValid = namePattern.test(document.getElementById('card-name').value);
+
+  bookNowBtn.disabled = !(allFilled && emailValid && phoneValid && cardValid && expiryValid && cvcValid && guestNameValid && cardNameValid);
+}
+    
+    
+    
+    // Modal handling
+    document.getElementById('close-modal').addEventListener('click', function() {
+      document.getElementById('success-modal').style.display = 'none';
+      window.location.href = '/';
+    });
+
+    // When Book Now button is clicked
+    document.getElementById('book-now-btn').addEventListener('click', async function () {
+    try {
+      // Show loading state
+      this.textContent = 'Processing...';
+      this.disabled = true;
+
+      const formData = {
+        hotelId: '<%= hotel._id %>', // Pass hotel ID
+        roomType: '<%= room.type %>', // Pass room type
+        checkIn: document.getElementById('check-in').value,
+        checkOut: document.getElementById('check-out').value,
+        bedOption: document.getElementById('bed-option').value,
+        guestName: document.getElementById('guest-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        cardName: document.getElementById('card-name').value,
+        cardNumber: document.getElementById('card-number').value,
+        expiry: document.getElementById('expiry').value,
+        cvc: document.getElementById('cvc').value,
+        pricePerNight: parseInt('<%= room.price %>', 10),
+        nights: parseInt(document.getElementById('night-count').textContent, 10),
+        total: parseInt(document.getElementById('total-price').textContent, 10),
+      };
+
+      const response = await fetch('/api/auth/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // Show success modal
+        document.getElementById('success-modal').style.display = 'flex';
+      } else {
+        alert(`Booking failed: ${result.message || 'Please try again'}`);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Connection error. Please check your internet and try again.');
+    } finally {
+      // Reset button state
+      this.textContent = 'Book now';
+      this.disabled = false;
+    }
+  });
+
+  </script>
+</body>
+</html>

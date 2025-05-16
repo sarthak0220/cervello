@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete Your Reservation</title>
+  <link rel="stylesheet" href="/css/dining-user-details.css">
+</head>
+<body data-show-popup="<%= showPopup ? 'true' : 'false' %>">
+  <%- include('partials/navbar') %>
+  
+  <div class="detail-container">
+    <div class="reservation-section">
+      <h1>Complete Your Reservation</h1>
+      <p class="description">
+        Please provide your details to reserve a table at <strong><%= restaurant.name %></strong>.
+      </p>
+
+      <form action="/dining/<%= restaurant._id %>/confirm" method="POST" class="reservation-form" id="reservationForm">
+        <input type="hidden" name="guests" value="<%= guests %>">
+        <input type="hidden" name="time" value="<%= time %>">
+        <input type="hidden" name="date" value="<%= date %>">
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Name should contain only letters and spaces.">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required pattern="\d{10}" title="Phone number must be exactly 10 digits.">
+
+        <button type="submit">Reserve Now</button>
+      </form>
+    </div>
+
+    <div class="image-section">
+      <img src="<%= restaurant.image %>" alt="<%= restaurant.name %>">
+      <div class="summary">
+        <p><strong>Date:</strong> <%= date %></p>
+        <p><strong>Time:</strong> <%= time %></p>
+        <p><strong>Guests:</strong> <%= guests %></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmationPopup" class="popup hidden">
+    <div class="popup-content">
+      <h2>Reservation Confirmed!</h2>
+      <p>Your table has been reserved successfully.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  
+
+  <script>
+    function closePopup() {
+      document.getElementById("confirmationPopup").classList.add("hidden");
+      window.location.href = "/dining";
+    }
+
+    window.onload = function() {
+      const showPopup = document.body.getAttribute('data-show-popup');
+      if (showPopup === "true") {
+        document.getElementById("confirmationPopup").classList.remove("hidden");
+      }
+    };
+
+    const form = document.getElementById("reservationForm");
+    form.addEventListener("submit", function (e) {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+      const nameRegex = /^[a-zA-Z\s]{2,}$/;
+      const phoneRegex = /^\d{10}$/;
+
+      if (!nameRegex.test(name)) {
+        alert("Please enter a valid name (letters and spaces only).");
+        e.preventDefault();
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        e.preventDefault();
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        e.preventDefault();
+        return;
+      }
+    });
+  </script>
+</body>
+</html>
